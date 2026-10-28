@@ -1,0 +1,29 @@
+import java.util.List;
+import java.util.Objects;
+
+public class RoutePlanner {
+
+    private RouteStrategy strategy;
+
+    public RoutePlanner(RouteStrategy strategy) {
+        setStrategy(strategy);
+    }
+
+    public void setStrategy(RouteStrategy strategy) {
+        this.strategy = Objects.requireNonNull(
+                strategy,
+                "Strategy cannot be null"
+        );
+    }
+
+    public Route plan(
+            List<Route> routes,
+            DeliveryRequest request
+    ) {
+        return strategy.selectRoute(routes, request);
+    }
+
+    public String getCurrentStrategyName() {
+        return strategy.getStrategyName();
+    }
+}
